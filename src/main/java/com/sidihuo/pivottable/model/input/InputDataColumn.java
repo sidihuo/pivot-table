@@ -10,14 +10,9 @@ public class InputDataColumn {
     private int index;
 
     /**
-     * 转成字符串的值
-     */
-    private String value;
-
-    /**
      * 原始类型的值
      */
-    private Object objectValue;
+    private Object value;
 
 
     public int getIndex() {
@@ -28,19 +23,11 @@ public class InputDataColumn {
         this.index = index;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
-    }
-
-    public Object getObjectValue() {
-        return objectValue;
-    }
-
-    public void setObjectValue(Object objectValue) {
-        this.objectValue = objectValue;
     }
 }

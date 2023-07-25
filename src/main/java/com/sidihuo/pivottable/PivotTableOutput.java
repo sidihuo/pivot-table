@@ -12,16 +12,16 @@ import java.util.List;
  */
 public class PivotTableOutput {
 
-    private List<OutputHeaderRow> headerRows;
+    private OutputHeaderRow headerRow;
 
     private List<OutputDataRow> dataRows;
 
-    public List<OutputHeaderRow> getHeaderRows() {
-        return headerRows;
+    public OutputHeaderRow getHeaderRow() {
+        return headerRow;
     }
 
-    public void setHeaderRows(List<OutputHeaderRow> headerRows) {
-        this.headerRows = headerRows;
+    public void setHeaderRow(OutputHeaderRow headerRow) {
+        this.headerRow = headerRow;
     }
 
     public List<OutputDataRow> getDataRows() {
