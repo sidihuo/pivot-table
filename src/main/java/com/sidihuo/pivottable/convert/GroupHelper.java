@@ -9,11 +9,15 @@ import com.sidihuo.pivottable.model.input.PivotConfig;
 import com.sidihuo.pivottable.model.input.PivotDataConfig;
 import com.sidihuo.pivottable.model.input.PivotRowConfig;
 import com.sidihuo.pivottable.model.output.OutputHeaderRow;
+import com.sidihuo.pivottable.model.temp.GroupInfoTemp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @Description
@@ -23,9 +27,9 @@ import java.util.Map;
 public class GroupHelper {
 
 
-    public static OutputHeaderRow group(PivotTableInput pivotTableInput) {
+    public static GroupInfoTemp group(PivotTableInput pivotTableInput) {
 
-        Map<String, List<String>> columnGroupMap = new HashMap<String, List<String>>();
+        Map<String, Set<String>> columnGroupMap = new HashMap<String, Set<String>>();
         Map<String, List<InputDataRow>> rowGroupMap = new HashMap<String, List<InputDataRow>>();
 
         List<InputDataColumnHeader> headers = pivotTableInput.getHeaders();
@@ -52,7 +56,7 @@ public class GroupHelper {
             String headerName = columnConfig.getHeaderName();
             int indexOf = headerNames.indexOf(headerName);
             columnIndexes.add(indexOf);
-            columnGroupMap.put(headerName, new ArrayList<String>());
+            columnGroupMap.put(headerName, new HashSet<String>());
         }
 
         List<PivotDataConfig> dataConfigs = pivotConfig.getDataConfigs();
@@ -88,13 +92,19 @@ public class GroupHelper {
                 Object value = inputDataColumn.getValue();
                 String valueStr = value == null ? "" : value.toString();
                 String headerName = headerIndexNamesMap.get(columnIndex);
-                List<String> groupColumns = columnGroupMap.get(headerName);
+                Set<String> groupColumns = columnGroupMap.get(headerName);
                 groupColumns.add(valueStr);
             }
         }
-        //TODO
-        OutputHeaderRow outputHeaderRow = new OutputHeaderRow();
-        return outputHeaderRow;
+
+        GroupInfoTemp groupInfoTemp = new GroupInfoTemp();
+        groupInfoTemp.setColumnGroupMap(columnGroupMap);
+        groupInfoTemp.setRowGroupMap(rowGroupMap);
+        groupInfoTemp.setRowIndexes(rowIndexes);
+        groupInfoTemp.setColumnIndexes(columnIndexes);
+        groupInfoTemp.setDataIndexes(dataIndexes);
+        groupInfoTemp.setHeaderIndexNamesMap(headerIndexNamesMap);
+        return groupInfoTemp;
     }
 
 }

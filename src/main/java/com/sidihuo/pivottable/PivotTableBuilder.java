@@ -1,7 +1,11 @@
 package com.sidihuo.pivottable;
 
+import com.sidihuo.pivottable.convert.GroupHelper;
+import com.sidihuo.pivottable.convert.PivotHelper;
 import com.sidihuo.pivottable.exception.PivotTableException;
 import com.sidihuo.pivottable.model.input.PivotConfig;
+import com.sidihuo.pivottable.model.output.OutputHeaderRow;
+import com.sidihuo.pivottable.model.temp.GroupInfoTemp;
 
 /**
  * @Description
@@ -12,6 +16,9 @@ public class PivotTableBuilder {
 
     public static PivotTableOutput build(PivotTableInput pivotTableInput) {
         valid(pivotTableInput);
+        GroupInfoTemp groupInfoTemp = GroupHelper.group(pivotTableInput);
+        PivotHelper.pivot(pivotTableInput,groupInfoTemp);
+
         PivotTableOutput pivotTableOutput = new PivotTableOutput();
         return pivotTableOutput;
     }
