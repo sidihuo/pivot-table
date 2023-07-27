@@ -12,7 +12,7 @@ public class PivotColumnHeader {
     private int index;
     private String name;
     private List<PivotColumnHeader> children;
-    private PivotColumnHeader parent;
+//    private PivotColumnHeader parent;
 
     public int getIndex() {
         return index;
@@ -38,11 +38,11 @@ public class PivotColumnHeader {
         this.children = children;
     }
 
-    public PivotColumnHeader getParent() {
-        return parent;
-    }
-
-    public void setParent(PivotColumnHeader parent) {
-        this.parent = parent;
-    }
+//    public PivotColumnHeader getParent() {
+//        return parent;
+//    }
+//
+//    public void setParent(PivotColumnHeader parent) {
+//        this.parent = parent;
+//    }
 }

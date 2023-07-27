@@ -17,7 +17,7 @@ public class PivotTableBuilder {
     public static PivotTableOutput build(PivotTableInput pivotTableInput) {
         valid(pivotTableInput);
         GroupInfoTemp groupInfoTemp = GroupHelper.group(pivotTableInput);
-        PivotHelper.pivot(pivotTableInput,groupInfoTemp);
+        PivotHelper.pivotHeader(pivotTableInput,groupInfoTemp);
 
         PivotTableOutput pivotTableOutput = new PivotTableOutput();
         return pivotTableOutput;
