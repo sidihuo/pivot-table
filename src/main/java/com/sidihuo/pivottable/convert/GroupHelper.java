@@ -8,13 +8,11 @@ import com.sidihuo.pivottable.model.input.PivotColumnConfig;
 import com.sidihuo.pivottable.model.input.PivotConfig;
 import com.sidihuo.pivottable.model.input.PivotDataConfig;
 import com.sidihuo.pivottable.model.input.PivotRowConfig;
-import com.sidihuo.pivottable.model.output.OutputHeaderRow;
 import com.sidihuo.pivottable.model.temp.GroupInfoTemp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -95,6 +93,13 @@ public class GroupHelper {
                 Set<String> groupColumns = columnGroupMap.get(headerName);
                 groupColumns.add(valueStr);
             }
+
+            for (InputDataColumn column : columns) {
+                int index = column.getIndex();
+                String header = headerIndexNamesMap.get(index);
+                column.setHeader(header);
+            }
+
         }
 
         GroupInfoTemp groupInfoTemp = new GroupInfoTemp();

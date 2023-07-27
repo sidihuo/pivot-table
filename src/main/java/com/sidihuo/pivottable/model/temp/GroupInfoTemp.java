@@ -1,9 +1,8 @@
 package com.sidihuo.pivottable.model.temp;
 
 import com.sidihuo.pivottable.model.input.InputDataRow;
+import com.sidihuo.pivottable.model.output.PivotColumnHeader;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,9 +18,11 @@ public class GroupInfoTemp {
     private Map<String, List<InputDataRow>> rowGroupMap;
 
     private List<Integer> rowIndexes;
-    private List<Integer> columnIndexes ;
+    private List<Integer> columnIndexes;
     private List<Integer> dataIndexes;
     private Map<Integer, String> headerIndexNamesMap;
+
+    private List<PivotColumnHeader> dataColumnHeaders;
 
 
     public Map<String, Set<String>> getColumnGroupMap() {
@@ -70,5 +71,13 @@ public class GroupInfoTemp {
 
     public void setHeaderIndexNamesMap(Map<Integer, String> headerIndexNamesMap) {
         this.headerIndexNamesMap = headerIndexNamesMap;
+    }
+
+    public List<PivotColumnHeader> getDataColumnHeaders() {
+        return dataColumnHeaders;
+    }
+
+    public void setDataColumnHeaders(List<PivotColumnHeader> dataColumnHeaders) {
+        this.dataColumnHeaders = dataColumnHeaders;
     }
 }

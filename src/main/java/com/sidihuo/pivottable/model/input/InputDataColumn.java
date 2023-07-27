@@ -15,6 +15,9 @@ public class InputDataColumn {
     private Object value;
 
 
+    private String header;
+
+
     public int getIndex() {
         return index;
     }
@@ -29,5 +32,13 @@ public class InputDataColumn {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 }
