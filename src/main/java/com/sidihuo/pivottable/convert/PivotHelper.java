@@ -31,11 +31,13 @@ public class PivotHelper {
         List<PivotColumnHeader> columnHeaderObjects = new ArrayList<PivotColumnHeader>();
         List<PivotColumnHeader> columnHeaderLeafs = columnHeaderObjects;
         List<Integer> columnIndexes = groupInfoTemp.getColumnIndexes();
+        //int columnHeaderHeight = 0;
         for (int i = 0; i < columnIndexes.size(); i++) {
             Integer columnIndex = columnIndexes.get(i);
             String header = groupInfoTemp.getHeaderIndexNamesMap().get(columnIndex);
             Set<String> columnHeaders = columnGroupMap.get(header);
             columnHeaderLeafs = loopHeader(columnHeaderLeafs, columnHeaders);
+            //columnHeaderHeight++;
         }
         List<PivotColumnHeader> dataColumnHeaders = new ArrayList<PivotColumnHeader>();
         groupInfoTemp.setDataColumnHeaders(dataColumnHeaders);
@@ -55,6 +57,8 @@ public class PivotHelper {
             }
         }
         headerRow.setColumnHeaders(columnHeaderObjects);
+//        headerRow.setColumnHeaderHeight(columnHeaderHeight + 1);
+        headerRow.setDataColumnHeaders(dataColumnHeaders);
 
         List<String> rowHeaders = new ArrayList<String>();
         List<Integer> rowIndexes = groupInfoTemp.getRowIndexes();
@@ -63,6 +67,7 @@ public class PivotHelper {
             rowHeaders.add(header);
         }
         headerRow.setRowHeaders(rowHeaders);
+        buildHeaderCells(headerRow);
         return headerRow;
     }
 
@@ -217,6 +222,73 @@ public class PivotHelper {
             leafs.addAll(children);
         }
         return leafs;
+    }
+
+    private static void buildHeaderCells(OutputHeaderRow outputHeaderRow) {
+        List<PivotColumnHeader> dataColumnHeaders = outputHeaderRow.getDataColumnHeaders();
+        for (PivotColumnHeader dataColumnHeader : dataColumnHeaders) {
+            List<String> cells = new ArrayList<String>();
+            dataColumnHeader.setCells(cells);
+            cells.add(dataColumnHeader.getName());
+            loopHeaderCells(cells, dataColumnHeader);
+//            PivotColumnHeader parent = dataColumnHeader.getParent().getParent();
+//            System.out.println(parent);
+        }
+    }
+
+    private static void loopHeaderCells(List<String> cells, PivotColumnHeader dataColumnHeader) {
+        if (dataColumnHeader == null || dataColumnHeader.getParent() == null) {
+            return;
+        }
+        PivotColumnHeader parent = dataColumnHeader.getParent();
+        List<String> parentCells = parent.getCells();
+        if (parentCells == null) {
+            parentCells = new ArrayList<String>();
+            parent.setCells(parentCells);
+        }
+        String name = parent.getName();
+//        int size = cells.size();
+//        for (int index = 0; index < size; index++) {
+            parentCells.add(name);
+//        }
+        loopHeaderCells(parentCells, parent);
+    }
+
+    public static Map<Integer, List<String>> buildHeaderCellsMap(OutputHeaderRow outputHeaderRow) {
+        Map<Integer, List<String>> result = new HashMap<Integer, List<String>>();
+        List<PivotColumnHeader> columnHeaders = outputHeaderRow.getColumnHeaders();
+        int rowIndex = 0;
+        List<String> cells = result.get(rowIndex);
+        if (cells == null) {
+            cells = new ArrayList<String>();
+            result.put(rowIndex, cells);
+        }
+        rowIndex++;
+        for (PivotColumnHeader columnHeader : columnHeaders) {
+            List<String> cellsTemp = columnHeader.getCells();
+            cells.addAll(cellsTemp);
+            List<PivotColumnHeader> children = columnHeader.getChildren();
+            loopBuildHeaderCellsMap(children, rowIndex, result);
+        }
+        return result;
+    }
+
+    private static void loopBuildHeaderCellsMap(List<PivotColumnHeader> columnHeaders, int rowIndex, Map<Integer, List<String>> result) {
+        if (columnHeaders == null || columnHeaders.size() == 0) {
+            return;
+        }
+        List<String> cells = result.get(rowIndex);
+        if (cells == null) {
+            cells = new ArrayList<String>();
+            result.put(rowIndex, cells);
+        }
+        rowIndex++;
+        for (PivotColumnHeader columnHeader : columnHeaders) {
+            List<String> cellsTemp = columnHeader.getCells();
+            cells.addAll(cellsTemp);
+            List<PivotColumnHeader> children = columnHeader.getChildren();
+            loopBuildHeaderCellsMap(children, rowIndex, result);
+        }
     }
 
 }

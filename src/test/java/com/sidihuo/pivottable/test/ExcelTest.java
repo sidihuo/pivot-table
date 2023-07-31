@@ -3,6 +3,7 @@ package com.sidihuo.pivottable.test;
 import com.alibaba.excel.EasyExcel;
 import com.sidihuo.pivottable.PivotTableBuilder;
 import com.sidihuo.pivottable.PivotTableInput;
+import com.sidihuo.pivottable.PivotTableOutput;
 import com.sidihuo.pivottable.model.input.InputDataColumnHeader;
 import com.sidihuo.pivottable.model.input.InputDataRow;
 import com.sidihuo.pivottable.model.input.PivotColumnConfig;
@@ -62,6 +63,7 @@ public class ExcelTest {
         dataConfigs.add(dc);
         pivotConfig.setDataConfigs(dataConfigs);
         pivotTableInput.setPivotConfig(pivotConfig);
-        PivotTableBuilder.build(pivotTableInput);
+        PivotTableOutput pivotTableOutput = PivotTableBuilder.build(pivotTableInput);
+        ExcelWriter.write(pivotTableOutput);
     }
 }

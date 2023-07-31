@@ -13,6 +13,9 @@ public class OutputHeaderRow {
 
     private List<PivotColumnHeader> columnHeaders;
 
+//    private int columnHeaderHeight;
+    private List<PivotColumnHeader> dataColumnHeaders;
+
     public List<String> getRowHeaders() {
         return rowHeaders;
     }
@@ -27,5 +30,21 @@ public class OutputHeaderRow {
 
     public void setColumnHeaders(List<PivotColumnHeader> columnHeaders) {
         this.columnHeaders = columnHeaders;
+    }
+
+//    public int getColumnHeaderHeight() {
+//        return columnHeaderHeight;
+//    }
+//
+//    public void setColumnHeaderHeight(int columnHeaderHeight) {
+//        this.columnHeaderHeight = columnHeaderHeight;
+//    }
+
+    public List<PivotColumnHeader> getDataColumnHeaders() {
+        return dataColumnHeaders;
+    }
+
+    public void setDataColumnHeaders(List<PivotColumnHeader> dataColumnHeaders) {
+        this.dataColumnHeaders = dataColumnHeaders;
     }
 }

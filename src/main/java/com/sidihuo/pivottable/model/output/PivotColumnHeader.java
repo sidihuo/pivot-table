@@ -14,6 +14,8 @@ public class PivotColumnHeader {
     private List<PivotColumnHeader> children;
     private PivotColumnHeader parent;
 
+    private List<String> cells;
+
     public int getIndex() {
         return index;
     }
@@ -44,5 +46,13 @@ public class PivotColumnHeader {
 
     public void setParent(PivotColumnHeader parent) {
         this.parent = parent;
+    }
+
+    public List<String> getCells() {
+        return cells;
+    }
+
+    public void setCells(List<String> cells) {
+        this.cells = cells;
     }
 }

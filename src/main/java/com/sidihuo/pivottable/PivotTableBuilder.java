@@ -7,7 +7,10 @@ import com.sidihuo.pivottable.model.input.PivotConfig;
 import com.sidihuo.pivottable.model.output.OutputDataRow;
 import com.sidihuo.pivottable.model.output.OutputHeaderRow;
 import com.sidihuo.pivottable.model.temp.GroupInfoTemp;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,10 +25,33 @@ public class PivotTableBuilder {
         GroupInfoTemp groupInfoTemp = GroupHelper.group(pivotTableInput);
         OutputHeaderRow outputHeaderRow = PivotHelper.pivotHeader(pivotTableInput, groupInfoTemp);
         List<OutputDataRow> outputDataRows = PivotHelper.pivotData(pivotTableInput, groupInfoTemp);
+        sortRowData(outputDataRows);
         PivotTableOutput pivotTableOutput = new PivotTableOutput();
         pivotTableOutput.setHeaderRow(outputHeaderRow);
         pivotTableOutput.setDataRows(outputDataRows);
         return pivotTableOutput;
+    }
+
+    private static void sortRowData(List<OutputDataRow> outputDataRows ){
+
+        Collections.sort(outputDataRows, new Comparator<OutputDataRow>() {
+            public int compare(OutputDataRow o1, OutputDataRow o2) {
+                List<String> rowHeaderValues1 = o1.getRowHeaderValues();
+                List<String> rowHeaderValues2 = o2.getRowHeaderValues();
+                int size = rowHeaderValues1.size();
+                int index=0;
+                while (index<size){
+                    String s1 = rowHeaderValues1.get(index);
+                    String s2 = rowHeaderValues2.get(index);
+                    if(!StringUtils.equals(s1,s2)){
+                        return s1.compareTo(s2);
+                    }
+                    index++;
+                }
+                return 0;
+            }
+        });
+
     }
 
     private static void valid(PivotTableInput pivotTableInput) {
