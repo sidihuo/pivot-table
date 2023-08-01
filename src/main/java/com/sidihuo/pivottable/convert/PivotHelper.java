@@ -115,6 +115,11 @@ public class PivotHelper {
                 BigDecimal pivotValue = calculatePivotValue(pivotValues);
                 outputDataColumn.setValue(pivotValue == null ? null : pivotValue.doubleValue());
                 outputDataColumn.setColumnHeaders(getColumnHeaders(dataColumnHeader));
+
+//                String toString = rowHeaderValues.toString();
+//                String aa=dataColumnHeader.getParent().getParent().getName()+"-"+dataColumnHeader.getParent().getName()+"-"+dataColumnHeader.getName();
+//                System.out.println(toString+" ### "+aa+"="+outputDataColumn.getValue());
+//                aa.hashCode();
             }
 
         }
@@ -131,13 +136,14 @@ public class PivotHelper {
             columnIndexValuesMap.put(column.getIndex(), (String) column.getValue());
             if (StringUtils.equals(currentDataHeaderName, column.getHeader())) {
                 currentColumn = column;
+                break;
             }
         }
 
         PivotColumnHeader pivotColumnHeaderTemp = dataColumnHeader.getParent();
         List<Integer> columnIndexes = groupInfoTemp.getColumnIndexes();
         boolean flag = true;
-        for (int i = columnIndexes.size() - 1; i > 0; i--) {
+        for (int i = columnIndexes.size() - 1; i >= 0; i--) {
             Integer integer = columnIndexes.get(i);
             String headerTemp = columnIndexValuesMap.get(integer);
             if (pivotColumnHeaderTemp == null || !StringUtils.equals(headerTemp, pivotColumnHeaderTemp.getName())) {
@@ -249,7 +255,7 @@ public class PivotHelper {
         String name = parent.getName();
 //        int size = cells.size();
 //        for (int index = 0; index < size; index++) {
-            parentCells.add(name);
+        parentCells.add(name);
 //        }
         loopHeaderCells(parentCells, parent);
     }
