@@ -5,6 +5,7 @@ import com.sidihuo.pivottable.convert.PivotHelper;
 import com.sidihuo.pivottable.model.output.OutputDataColumn;
 import com.sidihuo.pivottable.model.output.OutputDataRow;
 import com.sidihuo.pivottable.model.output.OutputHeaderRow;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -59,10 +60,45 @@ public class ExcelWriter {
                 cell.setCellValue(rowHeader);
             }
             List<String> strings = integerListMap.get(integer);
+            int rowNum = rowTemp.getRowNum();
+            int columnMergedFirst = 0;
+            int columnMergedLast = 0;
+            String columnMergedCurrent = null;
             for (String string : strings) {
                 Cell cell = rowTemp.createCell(columnIndex++);
                 cell.setCellValue(string);
+                if (columnMergedCurrent == null) {
+                    columnMergedFirst = cell.getColumnIndex();
+                    columnMergedLast = columnMergedFirst;
+                    columnMergedCurrent = string;
+                } else {
+                    if (StringUtils.equals(columnMergedCurrent, string)) {
+                        columnMergedLast = cell.getColumnIndex();
+                    } else {
+                        if (columnMergedLast > columnMergedFirst) {
+                            sheet1.addMergedRegion(new CellRangeAddress(rowNum, rowNum, columnMergedFirst, columnMergedLast));
+                            columnMergedFirst = cell.getColumnIndex();
+                            columnMergedLast = columnMergedFirst;
+                            columnMergedCurrent = string;
+                        } else {
+                            columnMergedFirst = cell.getColumnIndex();
+                            columnMergedLast = columnMergedFirst;
+                            columnMergedCurrent = string;
+                        }
+                    }
+                }
             }
+            if (columnMergedLast > columnMergedFirst) {
+                sheet1.addMergedRegion(new CellRangeAddress(rowNum, rowNum, columnMergedFirst, columnMergedLast));
+            }
+        }
+
+        int rowMergedFirst = 0;
+        int rowMergedLast = rowIndexHeaderList.size() - 1;
+        int columnMergedCurrent = 0;
+        for (String rowHeader : rowHeaders) {
+            sheet1.addMergedRegion(new CellRangeAddress(rowMergedFirst, rowMergedLast, columnMergedCurrent, columnMergedCurrent));
+            columnMergedCurrent++;
         }
 
 
