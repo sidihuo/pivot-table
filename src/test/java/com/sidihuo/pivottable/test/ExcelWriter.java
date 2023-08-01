@@ -121,6 +121,52 @@ public class ExcelWriter {
             }
         }
 
+        int rowMergeBeginIndex = rowIndexHeaderList.size();
+        List<String> rowHeaderValuesMergeCurrentValue = null;
+        List<Integer> rowHeaderValuesMergeCurrentRowFirst = null;
+        for (OutputDataRow dataRow : dataRows) {
+            List<String> rowHeaderValues = dataRow.getRowHeaderValues();
+            if (rowHeaderValuesMergeCurrentValue == null) {
+                rowHeaderValuesMergeCurrentValue = rowHeaderValues;
+                rowHeaderValuesMergeCurrentRowFirst = new ArrayList<Integer>();
+                for (String s : rowHeaderValuesMergeCurrentValue) {
+                    rowHeaderValuesMergeCurrentRowFirst.add(rowMergeBeginIndex);
+                }
+            } else {
+                int size = rowHeaderValuesMergeCurrentValue.size();
+                for (int columnIndex = size - 1; columnIndex >= 0; columnIndex--) {
+                    String last = rowHeaderValuesMergeCurrentValue.get(columnIndex);
+                    String current = rowHeaderValues.get(columnIndex);
+                    if (StringUtils.equals(last, current)) {
+                    } else {
+                        rowHeaderValuesMergeCurrentValue.set(columnIndex, current);
+                        int mergeRowFirst = rowHeaderValuesMergeCurrentRowFirst.get(columnIndex);
+                        int mergeRowLast = rowMergeBeginIndex - 1;
+                        if (mergeRowLast > mergeRowFirst) {
+                            sheet1.addMergedRegion(new CellRangeAddress(mergeRowFirst, mergeRowLast, columnIndex, columnIndex));
+                        }
+                        rowHeaderValuesMergeCurrentRowFirst.set(columnIndex, rowMergeBeginIndex);
+                    }
+                }
+
+            }
+            rowMergeBeginIndex++;
+        }
+
+        OutputDataRow outputDataRowLastLine = dataRows.get(dataRows.size() - 1);
+        List<String> rowHeaderValues = outputDataRowLastLine.getRowHeaderValues();
+        int size = rowHeaderValuesMergeCurrentValue.size();
+        for (int columnIndex = size - 1; columnIndex >= 0; columnIndex--){
+            String last = rowHeaderValuesMergeCurrentValue.get(columnIndex);
+            String current = rowHeaderValues.get(columnIndex);
+            if (StringUtils.equals(last, current)) {
+                int mergeRowFirst = rowHeaderValuesMergeCurrentRowFirst.get(columnIndex);
+                int mergeRowLast = rowMergeBeginIndex - 1;
+                if (mergeRowLast > mergeRowFirst) {
+                    sheet1.addMergedRegion(new CellRangeAddress(mergeRowFirst, mergeRowLast, columnIndex, columnIndex));
+                }
+            }
+        }
 
         //sheet1.addMergedRegion(new CellRangeAddress(0, 2, 0,20));
 
