@@ -9,19 +9,19 @@ import java.util.List;
  */
 public class OutputDataColumn {
 
-    private int index;
+//    private int index;
 
     private Double value;
 
     private List<String> columnHeaders;
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
+//    public int getIndex() {
+//        return index;
+//    }
+//
+//    public void setIndex(int index) {
+//        this.index = index;
+//    }
 
     public Double getValue() {
         return value;

@@ -7,6 +7,7 @@ import com.sidihuo.pivottable.model.input.PivotConfig;
 import com.sidihuo.pivottable.model.output.OutputDataRow;
 import com.sidihuo.pivottable.model.output.OutputHeaderRow;
 import com.sidihuo.pivottable.model.temp.GroupInfoTemp;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
@@ -18,9 +19,11 @@ import java.util.List;
  * @Date 2023/7/25 16:12
  * @Created by yanggangjie
  */
+@Slf4j
 public class PivotTableBuilder {
 
     public static PivotTableOutput build(PivotTableInput pivotTableInput) {
+        log.info("begin build pivot table {}", VersionLog.JAR_BUILD_TIME);
         valid(pivotTableInput);
         GroupInfoTemp groupInfoTemp = GroupHelper.group(pivotTableInput);
         OutputHeaderRow outputHeaderRow = PivotHelper.pivotHeader(pivotTableInput, groupInfoTemp);
@@ -29,6 +32,7 @@ public class PivotTableBuilder {
         PivotTableOutput pivotTableOutput = new PivotTableOutput();
         pivotTableOutput.setHeaderRow(outputHeaderRow);
         pivotTableOutput.setDataRows(outputDataRows);
+        log.info("end build pivot table {}", VersionLog.JAR_BUILD_TIME);
         return pivotTableOutput;
     }
 

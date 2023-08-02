@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class OutputHeaderRow {
 
+    /**
+     * 透视表的行的表头的索引对应的表头名字
+     */
     private List<String> rowHeaders;
 
     private List<PivotColumnHeader> columnHeaders;

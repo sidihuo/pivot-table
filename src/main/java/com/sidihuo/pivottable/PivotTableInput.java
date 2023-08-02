@@ -14,7 +14,8 @@ import java.util.List;
 public class PivotTableInput {
 
     /**
-     * 表头信息
+     * 调用方输入的清单列表的表头信息对象列表
+     * 自左到右的顺序
      */
     private List<InputDataColumnHeader> headers;
 

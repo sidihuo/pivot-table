@@ -7,6 +7,9 @@ package com.sidihuo.pivottable.model.input;
  */
 public class InputDataColumn {
 
+    /**
+     * 客户端调用必输的参数
+     */
     private int index;
 
     /**
@@ -14,7 +17,10 @@ public class InputDataColumn {
      */
     private Object value;
 
-
+    /**
+     * 客户端调用非必输的参数
+     * 程序默认根据index和表头信息重新赋值
+     */
     private String header;
 
 

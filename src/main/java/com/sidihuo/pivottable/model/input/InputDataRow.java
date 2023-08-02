@@ -9,17 +9,17 @@ import java.util.List;
  */
 public class InputDataRow {
 
-    private int index;
+//    private int index;
 
     private List<InputDataColumn> columns;
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
+//    public int getIndex() {
+//        return index;
+//    }
+//
+//    public void setIndex(int index) {
+//        this.index = index;
+//    }
 
     public List<InputDataColumn> getColumns() {
         return columns;

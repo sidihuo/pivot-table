@@ -7,6 +7,6 @@ package com.sidihuo.pivottable;
  */
 public class VersionLog {
 
-    public static String JAR_BUILD_TIME = "2023-0725-1524";
+    public static String JAR_BUILD_TIME = "2023-0802-1408";
 
 }

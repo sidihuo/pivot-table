@@ -14,12 +14,30 @@ import java.util.Set;
  */
 public class GroupInfoTemp {
 
+    /**
+     * 分组的结果，key=透视表配置列对应的列表头名 ，value=透视表列的值SET（自顶向下的顺序）
+     */
     private Map<String, Set<String>> columnGroupMap;
+    /**
+     * 分组的结果，key=透视表配置行对应的列表头的数据值拼接 ，value=原始输入行信息列表
+     */
     private Map<String, List<InputDataRow>> rowGroupMap;
 
+    /**
+     * 透视表的行的表头的索引
+     */
     private List<Integer> rowIndexes;
+    /**
+     * 透视表的列的表头的索引
+     */
     private List<Integer> columnIndexes;
+    /**
+     * 透视表的数据的表头的索引
+     */
     private List<Integer> dataIndexes;
+    /**
+     * 清单列表的表头索引和名字的映射map
+     */
     private Map<Integer, String> headerIndexNamesMap;
 
     private List<PivotColumnHeader> dataColumnHeaders;

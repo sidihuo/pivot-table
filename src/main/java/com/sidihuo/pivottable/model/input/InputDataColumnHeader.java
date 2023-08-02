@@ -10,7 +10,7 @@ public class InputDataColumnHeader {
     /**
      * 表头序列
      */
-    private int index;
+//    private int index;
     /**
      * 表头名
      */
@@ -21,13 +21,13 @@ public class InputDataColumnHeader {
      */
     private String dataType;
 
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
+//    public int getIndex() {
+//        return index;
+//    }
+//
+//    public void setIndex(int index) {
+//        this.index = index;
+//    }
 
     public String getName() {
         return name;
