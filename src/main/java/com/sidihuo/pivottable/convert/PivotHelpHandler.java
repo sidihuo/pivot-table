@@ -33,7 +33,7 @@ public class PivotHelpHandler {
         List<InputDataColumn> columns = inputDataRow.getColumns();
         Map<Integer, String> columnIndexValuesMap = new HashMap<Integer, String>();
         for (InputDataColumn column : columns) {
-            columnIndexValuesMap.put(column.getIndex(), (String) column.getValue());
+            columnIndexValuesMap.put(column.getIndex(), column == null ? null : column.getValue().toString());
             if (StringUtils.equals(currentDataHeaderName, column.getHeader())) {
                 currentColumn = column;
                 break;
@@ -59,7 +59,7 @@ public class PivotHelpHandler {
             return null;
         }
         Object value = currentColumn.getValue();
-        return value == null ? null : new BigDecimal((String) value);
+        return value == null ? null : new BigDecimal(value.toString());
     }
 
 
