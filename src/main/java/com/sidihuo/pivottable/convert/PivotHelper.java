@@ -72,6 +72,15 @@ public class PivotHelper {
         }
         headerRow.setRowHeaders(rowHeaders);
 
+        //透视表的列的表头的索引对应的表头名字
+        List<String> originColumnHeaders = new ArrayList<String>();
+        List<Integer> columnIndexesT = groupInfoTemp.getColumnIndexes();
+        for (Integer columnIndex : columnIndexesT) {
+            String header = groupInfoTemp.getHeaderIndexNamesMap().get(columnIndex);
+            originColumnHeaders.add(header);
+        }
+        headerRow.setOriginColumnHeaders(originColumnHeaders);
+
         //填充到每行每列的单元格中（合并单元格前）
         PivotHelpHandler.buildHeaderCells(headerRow);
         log.info("end pivotHeader");

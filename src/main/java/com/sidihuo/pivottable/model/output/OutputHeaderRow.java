@@ -14,6 +14,11 @@ public class OutputHeaderRow {
      */
     private List<String> rowHeaders;
 
+    /**
+     * 透视表的列的表头的索引对应的表头名字
+     */
+    private List<String> originColumnHeaders;
+
     private List<PivotColumnHeader> columnHeaders;
 
 //    private int columnHeaderHeight;
@@ -49,5 +54,13 @@ public class OutputHeaderRow {
 
     public void setDataColumnHeaders(List<PivotColumnHeader> dataColumnHeaders) {
         this.dataColumnHeaders = dataColumnHeaders;
+    }
+
+    public List<String> getOriginColumnHeaders() {
+        return originColumnHeaders;
+    }
+
+    public void setOriginColumnHeaders(List<String> originColumnHeaders) {
+        this.originColumnHeaders = originColumnHeaders;
     }
 }
